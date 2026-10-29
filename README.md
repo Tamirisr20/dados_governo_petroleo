@@ -1,64 +1,60 @@
-# 📊 Painel Analítico de Dados Abertos — Boletim Informativo Petróleo e Gás
+# Painel Analítico de Dados Abertos — Petróleo e Gás
 
-<p align="center">
-  <b>Dashboard interativo de Business Intelligence para análise de metadados e indicadores do setor de óleo e gás.</b>
-</p>
+Dashboard interativo de Business Intelligence para análise de dados e indicadores do setor de petróleo e gás, desenvolvido com HTML, JavaScript e gráficos interativos.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge" alt="Status Concluído">
-  <img src="https://img.shields.io/badge/Tecnologias-HTML5_%7C_Tailwind_CSS_%7C_Chart.js_%7C_JavaScript-blue?style=for-the-badge" alt="Tecnologias">
-  <img src="https://img.shields.io/badge/Licença-MIT-blueviolet?style=for-the-badge" alt="Licença">
-</p>
+![Status](https://img.shields.io/badge/Status-Concluído-success?style=flat-square)
+![Tecnologias](https://img.shields.io/badge/HTML5-JavaScript-blue?style=flat-square)
+![Licença](https://img.shields.io/badge/Licença-MIT-blueviolet?style=flat-square)
 
----
+## Sobre o Projeto
 
-## 🚀 Sobre o Projeto
+O projeto consiste em um dashboard navegável, alimentado por dados estruturados em JSON, que permite explorar metadados e indicadores de conjuntos de dados públicos.
 
-Este projeto consiste em um **Dashboard Analítico em HTML navegável**, leve e de alta performance, alimentado por um conjunto de dados estruturado em formato **JSON**. 
+O painel oferece filtros dinâmicos, visualizações interativas, indicadores de desempenho e exportação de dados, facilitando a análise e a consulta das informações.
 
-Desenvolvido com foco em usabilidade e experiência de usuário (*UX*), o painel permite a exploração dinâmica de metadados institucionais, oferecendo recursos avançados de filtragem em tempo real, gráficos interativos com suporte a *drill-down* por clique, indicadores executivos (*KPIs*) e exportação de dados filtrados.
+## Fonte de Dados
 
----
+- **Tema:** Transparência e monitoramento do setor de petróleo e gás
+- **Conjunto de dados:** Boletim Informativo Petróleo e Gás
+- **Órgão responsável:** Controladoria-Geral da União (CGU)
+- **Formato dos dados:** JSON
 
-## 🎯 Tema e Conjunto de Dados
+## Funcionalidades
 
-* **Tema:** Transparência e Monitoramento do Setor de Petróleo e Gás
-* **Conjunto de Dados:** Boletim Informativo Petróleo e Gás
-* **Órgão Responsável:** CGU - Controladoria-Geral da União
-* **Link da Fonte:** *(Disponível nos portais oficiais de dados abertos)*
+- **Indicadores (KPIs):** visualização de métricas sobre conjuntos de dados, downloads e reutilizações.
+- **Busca inteligente:** pesquisa com sugestões automáticas.
+- **Gráficos interativos:** análise de downloads e distribuição por organização.
+- **Filtros dinâmicos:** atualização das informações conforme os critérios selecionados.
+- **Tabela interativa:** consulta de registros com paginação e filtros por organização.
+- **Detalhamento:** visualização de descrições e estatísticas.
+- **Exportação CSV:** download dos dados filtrados para análise externa.
 
----
+## Tecnologias Utilizadas
 
-## ✨ Funcionalidades Principais
+- **HTML5 e CSS3:** estrutura e apresentação da interface.
+- **Tailwind CSS:** estilização e responsividade.
+- **JavaScript (ES6+):** lógica, filtros e interatividade.
+- **Chart.js:** criação dos gráficos.
+- **JSON:** armazenamento e estruturação dos dados.
 
-1. **KPIs Executivos Dinâmicos:** 
-   * Acompanhamento em tempo real do total de conjuntos filtrados, volume acumulado de downloads, recursos técnicos e reutilizações.
-2. **Busca Preditiva com Autocompletar:** 
-   * Campo de pesquisa inteligente que exibe sugestões instantâneas conforme o usuário digita parte do nome ou da organização.
-3. **Gráficos Interativos (Chart.js):**
-   * **Gráfico de Barras:** Exibição dos principais conjuntos de dados classificados por volume de downloads com eixo Y fixo/travado para manter a estabilidade visual durante os filtros.
-   * **Gráfico de Rosca (*Doughnut*):** Participação proporcional por órgão/organização com suporte a *drill-down* interativo (clique nas fatias ou no espaço em branco para alternar ou limpar filtros).
-4. **Tabela Interativa e Organizações Clicáveis:**
-   * Listagem detalhada dos registros com paginação e nomes de organizações interativos que permitem filtrar o painel com um único clique.
-5. **Modais de Detalhes e Estatísticas:**
-   * Janelas modais para inspeção de descrições completas e visualização de um resumo estatístico global.
-6. **Exportação de Dados:**
-   * Botão dedicado para exportar o subconjunto de dados atualmente filtrado diretamente para um arquivo **CSV**.
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-* **HTML5 / CSS3:** Estruturação semântica e estilização moderna.
-* **Tailwind CSS (via CDN):** Framework utilitário para design responsivo e identidade visual customizada (com foco nas cores Laranja Vivo `#FF5000` e Cinza Escuro `#454545`).
-* **Chart.js (via CDN):** Biblioteca JavaScript para renderização de gráficos estatísticos responsivos.
-* **JavaScript (ES6+):** Lógica de manipulação do DOM, controle de estado, tratamento assíncrono de JSON e eventos de interatividade.
-
----
-
-## 📂 Estrutura de Arquivos
+## Estrutura do Projeto
 
 ```text
-📦 projeto-dashboard-petroleo-gas
- ┣ 📜 index.html       # Arquivo principal contendo toda a interface e lógica do dashboard
- ┗ 📜 dados.json       # Base de dados estruturada em formato JSON
+projeto-dashboard-petroleo-gas/
+├── index.html
+└── dados.json
+```
+
+- `index.html`: interface, gráficos e funcionalidades do dashboard.
+- `dados.json`: conjunto de dados utilizado pelo painel.
+
+## Como Executar
+
+1. Clone ou baixe este repositório.
+2. Abra a pasta do projeto no Visual Studio Code.
+3. Execute o arquivo `index.html` utilizando a extensão **Live Server**, se disponível.
+4. Explore os gráficos, filtros e demais funcionalidades.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
