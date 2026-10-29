@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Analítico de Dados Abertos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF5000',
+                        primaryHover: '#E04500',
+                        darkBg: '#454545',
+                        lightBg: '#F8F9FA'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-lightBg text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Cabeçalho -->
+    <header class="bg-darkBg text-white shadow-lg border-b-4 border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                <div class="bg-primary p-3.5 rounded-xl text-white shadow-md">
+                    <i class="fa-solid fa-chart-line text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight">Catálogo de Dados Abertos</h1>
+                    <p class="text-xs text-gray-300 mt-0.5">Business Intelligence & Análise Exploratória de Metadados</p>
+                </div>
+            </div>
+            <div>
+                <button onclick="document.getElementById('modal-stats').showModal()" class="bg-gray-700 hover:bg-gray-600 text-xs sm:text-sm px-4 py-2.5 rounded-lg font-medium transition flex items-center space-x-2 border border-gray-600 shadow-sm">
+                    <i class="fa-solid fa-square-poll-vertical text-primary"></i>
+                    <span>Resumo Estatístico Global</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- KPIs Executivos -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Conjuntos Filtrados</p>
+                    <h3 id="kpi-datasets" class="text-3xl font-black text-gray-900 mt-1">0</h3>
+                    <span class="text-xs text-emerald-600 font-semibold mt-1 inline-block"><i class="fa-solid fa-check-circle"></i> No escopo atual</span>
+                </div>
+                <div class="bg-orange-50 text-primary p-4 rounded-xl"><i class="fa-solid fa-folder-open text-xl"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Total Downloads</p>
+                    <h3 id="kpi-downloads" class="text-3xl font-black text-gray-900 mt-1">0</h3>
+                    <span class="text-xs text-blue-600 font-semibold mt-1 inline-block"><i class="fa-solid fa-arrow-trend-up"></i> Volume acumulado</span>
+                </div>
+                <div class="bg-blue-50 text-blue-600 p-4 rounded-xl"><i class="fa-solid fa-cloud-arrow-down text-xl"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Recursos Técnicos</p>
+                    <h3 id="kpi-recursos" class="text-3xl font-black text-gray-900 mt-1">0</h3>
+                    <span class="text-xs text-purple-600 font-semibold mt-1 inline-block"><i class="fa-solid fa-file-code"></i> Arquivos/APIs</span>
+                </div>
+                <div class="bg-purple-50 text-purple-600 p-4 rounded-xl"><i class="fa-solid fa-file-lines text-xl"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Reutilizações</p>
+                    <h3 id="kpi-reusos" class="text-3xl font-black text-gray-900 mt-1">0</h3>
+                    <span class="text-xs text-amber-600 font-semibold mt-1 inline-block"><i class="fa-solid fa-share-nodes"></i> Impacto de reuso</span>
+                </div>
+                <div class="bg-amber-50 text-amber-600 p-4 rounded-xl"><i class="fa-solid fa-chart-pie text-xl"></i></div>
+            </div>
+        </section>
+
+        <!-- Seção de Gráficos -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-2 flex flex-col justify-between">
+                <h3 class="text-base font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-chart-column text-primary"></i>
+                    <span>Top Conjuntos por Volume de Downloads</span>
+                </h3>
+                <div class="relative h-72 w-full"><canvas id="chartTags"></canvas></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-base font-bold text-gray-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-chart-pie text-primary"></i>
+                        <span>Participação por Órgão</span>
+                    </h3>
+                    <button id="btn-reset-chart" onclick="resetChartFilter()" class="hidden text-xs bg-orange-100 text-primary px-2.5 py-1 rounded-md font-semibold hover:bg-orange-200 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-rotate-left"></i> <span>Ver Todos</span>
+                    </button>
+                </div>
+                <div class="relative h-72 w-full flex items-center justify-center"><canvas id="chartOrgs"></canvas></div>
+            </div>
+        </section>
+
+        <!-- Tabela e Filtro Inteligente -->
+        <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-5 bg-gray-50 border-b border-gray-200 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                <div class="md:col-span-6 relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" id="search-input" placeholder="Digite parte do nome ou organização..." autocomplete="off"
+                        class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary transition">
+                    <div id="suggestions-box" class="absolute z-50 left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto hidden"></div>
+                </div>
+                <div class="md:col-span-3">
+                    <button id="btn-reset" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Limpar Filtros</span>
+                    </button>
+                </div>
+                <div class="md:col-span-3">
+                    <button id="btn-export" class="w-full bg-primary hover:bg-primaryHover text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition flex items-center justify-center space-x-2 shadow-sm">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Exportar CSV</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 uppercase text-xs font-bold tracking-wider border-b border-gray-200">
+                            <th class="py-3.5 px-4">Organização</th>
+                            <th class="py-3.5 px-4">Conjunto de Dados</th>
+                            <th class="py-3.5 px-4">Tags</th>
+                            <th class="py-3.5 px-4 text-right">Recursos</th>
+                            <th class="py-3.5 px-4 text-right">Downloads</th>
+                            <th class="py-3.5 px-4 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-200 text-gray-700"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-darkBg text-gray-400 py-6 mt-12 border-t border-gray-700 text-center text-xs">
+        <p>Painel de Business Intelligence de Dados Abertos — Organizações clicáveis na tabela.</p>
+    </footer>
+
+    <!-- Modais -->
+    <dialog id="modal-stats" class="p-0 rounded-2xl shadow-2xl max-w-md w-full backdrop:bg-black/60">
+        <div class="p-6 bg-white space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-lg font-bold text-gray-900 flex items-center space-x-2">
+                    <i class="fa-solid fa-square-poll-vertical text-primary"></i>
+                    <span>Resumo Estatístico Global</span>
+                </h3>
+                <button onclick="document.getElementById('modal-stats').close()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            </div>
+            <div id="stats-content" class="text-sm space-y-3 text-gray-700"></div>
+            <div class="flex justify-end pt-3 border-t">
+                <button onclick="document.getElementById('modal-stats').close()" class="bg-darkBg text-white px-4 py-2 rounded-lg text-sm font-semibold">Fechar</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="modal-detalhes" class="p-0 rounded-2xl shadow-2xl max-w-2xl w-full backdrop:bg-black/60">
+        <div class="p-6 bg-white space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 id="modal-title" class="text-lg font-bold text-gray-900">Detalhes do Conjunto</h3>
+                <button onclick="document.getElementById('modal-detalhes').close()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            </div>
+            <div id="modal-body" class="text-sm text-gray-700 space-y-3"></div>
+            <div class="flex justify-end pt-3 border-t">
+                <button onclick="document.getElementById('modal-detalhes').close()" class="bg-darkBg text-white px-4 py-2 rounded-lg text-sm font-semibold">Fechar</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Script de Interatividade -->
+    <script>
+        let globalStats = {}, allData = [], filteredData = [];
+        let chartTagsInstance = null, chartOrgsInstance = null;
+        let selectedOrgFilter = null; 
+        let globalMaxDownloads = 40000;
+
+        async function loadData() {
+            try {
+                const response = await fetch('dados.json');
+                const jsonPayload = await response.json();
+                globalStats = jsonPayload.estatisticas || {};
+                allData = jsonPayload.registros || [];
+                filteredData = [...allData];
+
+                const maxVal = Math.max(...allData.map(i => i['Quantidade Downloads'] || 0));
+                globalMaxDownloads = Math.ceil(maxVal * 1.1);
+
+                populateStatsModal();
+                initDashboard();
+            } catch (error) {
+                console.error("Erro ao carregar dados.json:", error);
+            }
+        }
+
+        function populateStatsModal() {
+            document.getElementById('stats-content').innerHTML = `
+                <div class="flex justify-between py-1.5 border-b"><span>Total de Conjuntos:</span><strong>${globalStats.total_datasets}</strong></div>
+                <div class="flex justify-between py-1.5 border-b"><span>Downloads Acumulados:</span><strong>${globalStats.total_downloads.toLocaleString('pt-BR')}</strong></div>
+                <div class="flex justify-between py-1.5 border-b"><span>Média por Conjunto:</span><strong>${globalStats.media_downloads.toLocaleString('pt-BR')}</strong></div>
+                <div class="flex justify-between py-1.5"><span>Total de Recursos:</span><strong>${globalStats.total_recursos}</strong></div>
+            `;
+        }
+
+        function initDashboard() {
+            updateKPIs();
+            renderCharts();
+            renderTable();
+            
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', handleSearchInput);
+            
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#search-input') && !e.target.closest('#suggestions-box')) {
+                    document.getElementById('suggestions-box').classList.add('hidden');
+                }
+            });
+
+            document.getElementById('btn-reset').addEventListener('click', resetAllFilters);
+            document.getElementById('btn-export').addEventListener('click', exportCSV);
+        }
+
+        function updateKPIs() {
+            document.getElementById('kpi-datasets').innerText = filteredData.length;
+            document.getElementById('kpi-downloads').innerText = filteredData.reduce((acc, i) => acc + i['Quantidade Downloads'], 0).toLocaleString('pt-BR');
+            document.getElementById('kpi-recursos').innerText = filteredData.reduce((acc, i) => acc + i['Quantidade Recursos'], 0);
+            document.getElementById('kpi-reusos').innerText = filteredData.reduce((acc, i) => acc + i['Quantidade Reusos'], 0);
+        }
+
+        function filterByOrganization(orgName) {
+            if (selectedOrgFilter === orgName) {
+                resetAllFilters();
+            } else {
+                selectedOrgFilter = orgName;
+                document.getElementById('btn-reset-chart').classList.remove('hidden');
+                document.getElementById('search-input').value = orgName;
+                filteredData = allData.filter(i => i.Organização === orgName);
+            }
+            updateKPIs();
+            renderCharts();
+            renderTable();
+        }
+
+        function handleSearchInput(e) {
+            const query = e.target.value.toLowerCase().trim();
+            const box = document.getElementById('suggestions-box');
+
+            if (query.length === 0) {
+                box.classList.add('hidden');
+                selectedOrgFilter = null;
+                document.getElementById('btn-reset-chart').classList.add('hidden');
+                filteredData = [...allData];
+                updateKPIs();
+                renderCharts();
+                renderTable();
+                return;
+            }
+
+            const matches = allData.filter(i => 
+                i.Nome.toLowerCase().includes(query) || 
+                i.Organização.toLowerCase().includes(query)
+            );
+
+            filteredData = matches;
+            updateKPIs();
+            renderCharts();
+            renderTable();
+
+            if (matches.length > 0) {
+                box.innerHTML = '';
+                matches.slice(0, 5).forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2.5 hover:bg-orange-50 cursor-pointer border-b border-gray-100 text-xs transition';
+                    div.innerHTML = `<div class="font-bold text-gray-900">${item.Nome}</div><div class="text-gray-500">${item.Organização}</div>`;
+                    div.addEventListener('click', () => {
+                        document.getElementById('search-input').value = item.Nome;
+                        box.classList.add('hidden');
+                        filteredData = [item];
+                        updateKPIs();
+                        renderCharts();
+                        renderTable();
+                        showDetails(item);
+                    });
+                    box.appendChild(div);
+                });
+                box.classList.remove('hidden');
+            } else {
+                box.classList.add('hidden');
+            }
+        }
+
+        function resetAllFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('suggestions-box').classList.add('hidden');
+            selectedOrgFilter = null;
+            document.getElementById('btn-reset-chart').classList.add('hidden');
+            filteredData = [...allData];
+            updateKPIs();
+            renderCharts();
+            renderTable();
+        }
+
+        function resetChartFilter() {
+            resetAllFilters();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            filteredData.forEach(i => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50 transition border-b border-gray-100';
+                tr.innerHTML = `
+                    <td class="py-3 px-4">
+                        <span onclick="filterByOrganization('${i.Organização.replace(/'/g, "\\'")}')" class="font-semibold text-gray-900 hover:text-primary cursor-pointer underline decoration-dotted underline-offset-4 transition" title="Filtrar por esta organização">
+                            ${i.Organização}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">${i.Nome}</td>
+                    <td class="py-3 px-4"><span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">${i.Tags}</span></td>
+                    <td class="py-3 px-4 text-right font-mono text-xs">${i['Quantidade Recursos']}</td>
+                    <td class="py-3 px-4 text-right font-mono text-xs font-bold text-primary">${i['Quantidade Downloads'].toLocaleString('pt-BR')}</td>
+                    <td class="py-3 px-4 text-center"><button onclick='showDetails(${JSON.stringify(i).replace(/'/g, "&#39;")})' class="bg-gray-100 hover:bg-primary hover:text-white text-gray-600 p-2 rounded-lg transition" title="Ver Detalhes"><i class="fa-solid fa-eye text-xs"></i></button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function showDetails(i) {
+            document.getElementById('modal-title').innerText = i.Nome;
+            document.getElementById('modal-body').innerHTML = `
+                <div><strong>Organização:</strong> ${i.Organização}</div>
+                <div><strong>Descrição:</strong> <p class="mt-1 bg-gray-50 p-3 rounded border text-gray-600">${i.Descrição}</p></div>
+                <div><strong>Tags:</strong> ${i.Tags}</div>
+                <div class="grid grid-cols-2 gap-3 pt-2 text-center">
+                    <div class="bg-gray-50 p-3 rounded border"><div class="text-xs text-gray-500 font-semibold">Recursos</div><div class="font-bold">${i['Quantidade Recursos']}</div></div>
+                    <div class="bg-gray-50 p-3 rounded border"><div class="text-xs text-gray-500 font-semibold">Downloads</div><div class="font-bold text-primary">${i['Quantidade Downloads'].toLocaleString('pt-BR')}</div></div>
+                </div>
+            `;
+            document.getElementById('modal-detalhes').showModal();
+        }
+
+        function renderCharts() {
+            const topData = [...filteredData].sort((a, b) => b['Quantidade Downloads'] - a['Quantidade Downloads']).slice(0, 5);
+            
+            const ctxTags = document.getElementById('chartTags').getContext('2d');
+            if (chartTagsInstance) chartTagsInstance.destroy();
+            chartTagsInstance = new Chart(ctxTags, {
+                type: 'bar',
+                data: {
+                    labels: topData.map(i => i.Nome.length > 25 ? i.Nome.substring(0, 25) + '...' : i.Nome),
+                    datasets: [{ data: topData.map(i => i['Quantidade Downloads']), backgroundColor: '#FF5000', borderRadius: 6 }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: globalMaxDownloads
+                        }
+                    }
+                }
+            });
+
+            const orgs = {};
+            allData.forEach(i => orgs[i.Organização] = (orgs[i.Organização] || 0) + 1);
+            
+            const orgLabels = Object.keys(orgs);
+            const orgValues = Object.values(orgs);
+
+            const ctxOrgs = document.getElementById('chartOrgs').getContext('2d');
+            if (chartOrgsInstance) chartOrgsInstance.destroy();
+            chartOrgsInstance = new Chart(ctxOrgs, {
+                type: 'doughnut',
+                data: {
+                    labels: orgLabels,
+                    datasets: [{ 
+                        data: orgValues, 
+                        backgroundColor: orgLabels.map(org => org === selectedOrgFilter ? '#FF5000' : '#CBD5E1') 
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            filterByOrganization(orgLabels[index]);
+                        } else {
+                            resetAllFilters();
+                        }
+                    }
+                }
+            });
+        }
+
+        function exportCSV() {
+            let csv = 'Organização;Nome;Descrição;Tags;Recursos;Downloads\n';
+            filteredData.forEach(i => {
+                csv += `"${i.Organização}";"${i.Nome}";"${i.Descrição}";"${i.Tags}";${i['Quantidade Recursos']};${i['Quantidade Downloads']}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'dados_filtrados.csv';
+            a.click();
+        }
+
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

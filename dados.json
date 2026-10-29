@@ -1,0 +1,102 @@
+{
+  "estatisticas": {
+    "total_datasets": 10,
+    "total_downloads": 48250,
+    "media_downloads": 4825.0,
+    "max_downloads": 35400,
+    "total_recursos": 24,
+    "total_reusos": 3
+  },
+  "registros": [
+    {
+      "Organização": "CGU - Controladoria-Geral da União",
+      "Nome": "Patrimônio Genético Nacional em Pesquisas",
+      "Descrição": "Relação das espécies do Patrimônio Genético Nacional envolvidas em pesquisas científicas.",
+      "Tags": "pesquisa, biologia, meio ambiente",
+      "Quantidade Recursos": 1,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 2157
+    },
+    {
+      "Organização": "Ministério da Saúde",
+      "Nome": "Abrangência Geográfica de Planos de Saúde",
+      "Descrição": "Lista os municípios que fazem parte da cobertura oferecida por operadoras de planos de saúde.",
+      "Tags": "saúde, planos de saúde, operadoras",
+      "Quantidade Recursos": 2,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 4129
+    },
+    {
+      "Organização": "Banco Central do Brasil",
+      "Nome": "Estatísticas do Setor Externo - BPM6",
+      "Descrição": "Séries estatísticas consolidadas sobre o balanço de pagamentos e transações correntes.",
+      "Tags": "economia, finanças, comércio exterior",
+      "Quantidade Recursos": 4,
+      "Quantidade Reusos": 2,
+      "Quantidade Downloads": 35400
+    },
+    {
+      "Organização": "Ministério da Fazenda",
+      "Nome": "Indicadores de Crédito Bancário",
+      "Descrição": "Estatísticas mensais consolidadas das operações de crédito do sistema financeiro nacional.",
+      "Tags": "economia, crédito, bancos",
+      "Quantidade Recursos": 3,
+      "Quantidade Reusos": 1,
+      "Quantidade Downloads": 3200
+    },
+    {
+      "Organização": "IBGE",
+      "Nome": "Malha Municipal Digital e Geodésia",
+      "Descrição": "Bases cartográficas digitais dos limites municipais, estaduais e federais do Brasil.",
+      "Tags": "geografia, cartografia, geoespacial",
+      "Quantidade Recursos": 5,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 1850
+    },
+    {
+      "Organização": "Ministério do Meio Ambiente",
+      "Nome": "Unidades de Conservação Federais",
+      "Descrição": "Relação georreferenciada de parques nacionais, reservas biológicas e florestas nacionais.",
+      "Tags": "meio ambiente, conservação, geoespacial",
+      "Quantidade Recursos": 2,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 950
+    },
+    {
+      "Organização": "Ministério da Educação",
+      "Nome": "Censo da Educação Superior - Matrículas",
+      "Descrição": "Microdados detalhados sobre matrículas, concluintes e corpo docente nas instituições de ensino.",
+      "Tags": "educação, universidades, censo",
+      "Quantidade Recursos": 3,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 420
+    },
+    {
+      "Organização": "Ministério dos Transportes",
+      "Nome": "Acidentes em Rodovias Federais",
+      "Descrição": "Base de ocorrências de acidentes de trânsito registradas nas rodovias federais do país.",
+      "Tags": "transporte, trânsito, rodovias",
+      "Quantidade Recursos": 2,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 110
+    },
+    {
+      "Organização": "Ministério da Justiça",
+      "Nome": "Registros de Empresas Punidas - CNEP",
+      "Descrição": "Relação de empresas que sofreram sanções administrativas e inidoneidade no setor público.",
+      "Tags": "transparência, justiça, empresas",
+      "Quantidade Recursos": 1,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 34
+    },
+    {
+      "Organização": "Ministério da Ciência e Tecnologia",
+      "Nome": "Bolsas de Pesquisa Concedidas",
+      "Descrição": "Relação de beneficiários de bolsas de iniciação científica, mestrado, doutorado e pós-doutorado.",
+      "Tags": "ciência, pesquisa, bolsas",
+      "Quantidade Recursos": 1,
+      "Quantidade Reusos": 0,
+      "Quantidade Downloads": 0
+    }
+  ]
+}

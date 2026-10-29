@@ -1,0 +1,18 @@
+# Flashcards para Anki - Análise e Projeto Orientado a Objetos (AOO) e UML
+# Formato: Pergunta;Resposta (separados por ponto e vírgula ou em linhas distintas, estruturado para importação)
+
+Qual é a definição e o objetivo principal da Análise e Projeto Orientado a Objetos (AOO) e da UML?;A AOO é uma abordagem de desenvolvimento de software que representa um sistema por meio de objetos (com atributos/dados e métodos/comportamentos). A UML (Unified Modeling Language) é uma linguagem de modelagem visual usada para representar, documentar e planejar sistemas, facilitando a comunicação entre desenvolvedores, analistas e clientes.
+
+Quais são os 4 conceitos fundamentais da orientação a objetos (Classe, Objeto, Atributos e Métodos)?;1. Classe: Modelo que define os atributos e métodos de um conjunto de objetos.\n2. Objeto: Instância de uma classe, possuindo seus próprios valores específicos.\n3. Atributos: Características ou dados que descrevem um objeto.\n4. Métodos: Operações ou comportamentos que o objeto pode executar.
+
+Quais são os quatro pilares da orientação a objetos e o que cada um significa?;1. Abstração: Foco apenas nas características relevantes para o sistema, ignorando detalhes desnecessários.\n2. Encapsulamento: Proteção dos dados internos do objeto, controlando o acesso a eles por meio de métodos.\n3. Herança: Capacidade de uma classe herdar atributos e métodos de outra, promovendo reaproveitamento de código.\n4. Polimorfismo: Capacidade de objetos diferentes responderem de formas distintas à mesma operação ou interface.
+
+Qual a diferença fundamental entre diagramas estruturais e comportamentais na UML e quais os principais de cada tipo?;Os diagramas estruturais representam a estática/organização do sistema, enquanto os comportamentais representam a dinâmica/funcionamento.\n- Estruturais principais: Diagrama de Classes, Diagrama de Componentes e Diagrama de Implantação.\n- Comportamentais principais: Diagrama de Casos de Uso, Diagrama de Sequência, Diagrama de Atividades e Diagrama de Estados.
+
+Qual é a finalidade específica de cada um dos principais diagramas da UML (Classes, Casos de Uso, Sequência, Atividades, Estados, Componentes e Implantação)?;- Classes: Representa classes, atributos, métodos e relacionamentos.\n- Casos de Uso: Mostra as funcionalidades do sistema e os atores que interagem com ele.\n- Sequência: Representa a ordem cronológica das mensagens trocadas entre objetos.\n- Atividades: Representa o fluxo de atividades e decisões de um processo.\n- Estados: Mostra os estados de um objeto e as transições entre eles.\n- Componentes: Representa os componentes de software e suas dependências.\n- Implantação: Mostra a distribuição física do software em servidores, dispositivos e ambientes de execução.
+
+Qual é a diferença entre Agregação e Composição nos relacionamentos entre classes?;- Agregação: Relação todo-parte em que a parte pode existir de forma independente do todo.\n- Composição: Relação todo-parte mais forte em que a parte depende inteiramente do ciclo de vida do todo (se o todo morre, a parte também deixa de existir).
+
+O que significam as notações de multiplicidade nos relacionamentos UML (1, 0..1, 0..*, 1..*)?;Indicam quantas instâncias de uma classe podem se relacionar com outra:\n- 1: Exatamente uma.\n- 0..1: Nenhuma ou uma.\n- 0..*: Zero ou várias.\n- 1..*: Uma ou várias.
+
+Qual é a principal diferença de foco entre a Análise Orientada a Objetos e o Projeto Orientado a Objetos?;- Análise: Foca no "o que" o sistema deve fazer, identificando requisitos, problemas, atores e conceitos do domínio.\n- Projeto: Foca no "como" o sistema será construído, detalhando a implementação técnica, classes, métodos, interfaces e relacionamentos.
